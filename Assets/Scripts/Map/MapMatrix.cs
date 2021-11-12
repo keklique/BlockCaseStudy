@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Game{
     public class MapMatrix : MonoBehaviour
     {
-        private int[,] matrix;
+        public int[,] matrix;
         private int[] mapSize;
 
         public MapMatrix(int x, int y){
@@ -23,6 +23,9 @@ namespace Game{
             int availableBlocks = CheckRowEmptySpace(tempRow); // Calculate empty blocks from button
             int[] tempcor = GetIJOfFirstEmpth(type, row, availableBlocks);
             return new int[3] {availableBlocks,tempcor[0],tempcor[1]}; //return integer array of emptyblocks, start i and j of emty blocks
+        }
+
+        public void FillMatrix(ButtonType type,int[] coor, int blockSize){
         }
 #endregion
 
