@@ -1769,7 +1769,7 @@ MonoBehaviour:
   currentMap: {fileID: 0}
   mapObject: {fileID: 0}
   blockPrefab: {fileID: 7757625203961625826, guid: af3dc1a2380fc474696f3cc67a037b80, type: 3}
-  buttonPrefab: {fileID: 7757625203961625826, guid: af3dc1a2380fc474696f3cc67a037b80, type: 3}
+  buttonPrefab: {fileID: 3849223779987826077, guid: d2f992e29eac6aa4a8aaacc55cc5921e, type: 3}
 --- !u!114 &2007675043
 MonoBehaviour:
   m_ObjectHideFlags: 0
