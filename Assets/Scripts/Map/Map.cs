@@ -17,11 +17,15 @@ namespace Game{
         private GameObject containersObj;
         private LevelManager levelManager;
         
+        [SerializeField]private Camera mainCamera;
+        
 
 #region  Unity Functions
         void Start(){
             levelManager = LevelManager.instance;
             EventManager.instance.OnButtonClicked += ButtonFunc;
+            mainCamera = Camera.main;
+            
         }
 
         void ButtonFunc(ButtonType btype,int bPosition,Vector3 Vposition){
@@ -66,6 +70,7 @@ namespace Game{
         public void CreateMap(){
             CreateBlocks();
             CreateButtons();
+            SetCameraPosition();
         }
 
         public void Dispose(){
@@ -141,6 +146,12 @@ namespace Game{
             if(type==ButtonType.ToLeft){_rotation= 180;}
             if(type==ButtonType.ToButtom){_rotation= 270;}
             return _rotation;
+        }
+
+        private void SetCameraPosition(){
+            float xpos = (float)mapMatrix.matrix.GetLength(0)/2f;
+            float ypos = (float)mapMatrix.matrix.GetLength(1)*-1f/2f;
+            Camera.main.transform.position = new Vector3(xpos,ypos,-10f);
         }
 
         private void DestroyObjectArray(List<GameObject> array){

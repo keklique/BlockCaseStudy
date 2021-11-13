@@ -43,4 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b74a39491a6f9a94f85b2879d06b36b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lenght: 1
   elementPrefab: {fileID: 7324569015344992465, guid: cb98c8786da172648a2e4ecc4d04de17, type: 3}
+  targetPos: {x: 0, y: 0, z: 0}
+  containerSpeed: 3

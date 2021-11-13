@@ -41,13 +41,13 @@ namespace Game{
 
             if(type==ButtonType.ToButtom){
                 for(int i = 0;i<blockSize;i++){
-                    matrix[headCoor[0]+i,headCoor[1]] = 1;
+                    matrix[headCoor[0]-i,headCoor[1]] = 1;
                 }
             }
 
             if(type==ButtonType.ToTop){
                 for(int i = 0;i<blockSize;i++){
-                    matrix[headCoor[0]-i,headCoor[1]] = 1;
+                    matrix[headCoor[0]+i,headCoor[1]] = 1;
                 }
             }
         }

@@ -38,6 +38,11 @@ namespace Core{
                     currentMap.SetSizes(x,y);
                     currentMap.SetPrefabs(blockPrefab, buttonPrefab,containerPrefab);
                     currentMap.CreateMap();
+                    pageController.TurnPageOn(PageType.Game);
+                }
+
+                public void SetCurrentBlockSize(int _blockSize){
+                    currentBlockSize = _blockSize;
                 }
 
         #endregion

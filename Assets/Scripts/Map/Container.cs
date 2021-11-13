@@ -6,6 +6,7 @@ namespace Game{
         [SerializeField]int lenght = 1;
         [SerializeField]private GameObject elementPrefab;
         [SerializeField]private Vector3 targetPos;
+        [SerializeField]private float containerSpeed = 3f;
 
         public void SetLength(int l){
             lenght =l;
@@ -21,7 +22,7 @@ namespace Game{
         }
 
         void Update(){
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, 1*Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, containerSpeed*Time.deltaTime);
         }
 
     }
