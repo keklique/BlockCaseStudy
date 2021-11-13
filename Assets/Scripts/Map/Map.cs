@@ -10,22 +10,54 @@ namespace Game{
         private MapMatrix mapMatrix;
         private List<GameObject> blocks = new List<GameObject>();
         private List<GameObject> buttons = new List<GameObject>();
+        private List<GameObject> containers = new List<GameObject>();
         [SerializeField]private GameObject blockPrefab;
-        private GameObject buttonPrefab;
+        [SerializeField]private GameObject buttonPrefab;
+        [SerializeField]private GameObject containerPrefab;
+        private GameObject containersObj;
         private LevelManager levelManager;
         
 
 #region  Unity Functions
-        // void Start(){
-        //     levelManager = LevelManager.instance;
-        // }
+        void Start(){
+            levelManager = LevelManager.instance;
+            EventManager.instance.OnButtonClicked += ButtonFunc;
+        }
+
+        void ButtonFunc(ButtonType btype,int bPosition,Vector3 Vposition){
+            int[] result = mapMatrix.CheckEmptyBlocks(btype,bPosition);
+            Debug.Log("[Map]: empty blocks :"+result[0]+" --x :"+result[2]+" --y :"+result[1]);
+            if(levelManager.currentBlockSize<=result[0]){
+                CreateContainerObject();
+                int zRotation = GetRotationOfContainer(btype);
+                GameObject tempContainer = Instantiate(containerPrefab,Vposition,Quaternion.identity);
+                tempContainer.transform.rotation = Quaternion.Euler(0f,0f,(float)zRotation);
+                tempContainer.GetComponent<Container>().SetLength(levelManager.currentBlockSize);
+                tempContainer.transform.SetParent(containersObj.transform);
+                Vector3 targetPosition = new Vector3(result[2],-result[1],0f);
+                tempContainer.GetComponent<Container>().Move(targetPosition);
+                mapMatrix.FillMatrix(btype,new int[]{result[1],result[2]},levelManager.currentBlockSize);
+                
+            }else{
+                Debug.Log("Not Fits");
+            }  
+        }
+
+        private void CreateContainerObject(){
+            if(containersObj==null){
+                containersObj = new GameObject("Containers");
+                containersObj.transform.SetParent(this.gameObject.transform);
+                containers.Add(containersObj);  
+            }
+        }
 #endregion
 
 #region  Public Functions
-        public void SetPrefabs(GameObject _blockPrefab, GameObject _buttonPrefab){
+        public void SetPrefabs(GameObject _blockPrefab, GameObject _buttonPrefab, GameObject _containerPrefab){
             
             blockPrefab = _blockPrefab;
             buttonPrefab = _buttonPrefab;
+            containerPrefab = _containerPrefab;
         }
 
         public void SetSizes(int x, int y){
@@ -39,6 +71,7 @@ namespace Game{
         public void Dispose(){
                 DestroyObjectArray(blocks);
             } 
+    
 #endregion
 
 #region  private Functions
@@ -48,7 +81,7 @@ namespace Game{
             blocksObject.transform.SetParent(gameObject.transform);
             for(int i=0; i<mapMatrix.matrix.GetLength(0);i++){
                 for(int j=0; j<mapMatrix.matrix.GetLength(1);j++){
-                    GameObject tempBlock = Instantiate(blockPrefab,new Vector3(i,-j,0),Quaternion.identity).gameObject;
+                    GameObject tempBlock = Instantiate(blockPrefab,new Vector3(j,-i,0.55f),Quaternion.identity).gameObject;
                     blocks.Add(tempBlock);
                     tempBlock.transform.SetParent(blocksObject.transform);
                 }
@@ -56,9 +89,10 @@ namespace Game{
         }
 
         private void CreateButtons(){
-            int vn = mapMatrix.matrix.GetLength(1);
-            int hn = mapMatrix.matrix.GetLength(0);
+            int vn = mapMatrix.matrix.GetLength(0);
+            int hn = mapMatrix.matrix.GetLength(1);
             GameObject buttonsObject =  new GameObject("Buttons");
+            buttonsObject.transform.SetParent(this.gameObject.transform);
             blocks.Add(buttonsObject);
 
             //ToRight buttons
@@ -98,6 +132,15 @@ namespace Game{
             }
 
 
+        }
+
+        private int GetRotationOfContainer(ButtonType type){
+            int _rotation = 0;
+            if(type==ButtonType.ToRight){_rotation= 0;}
+            if(type==ButtonType.ToTop){_rotation= 90;}
+            if(type==ButtonType.ToLeft){_rotation= 180;}
+            if(type==ButtonType.ToButtom){_rotation= 270;}
+            return _rotation;
         }
 
         private void DestroyObjectArray(List<GameObject> array){

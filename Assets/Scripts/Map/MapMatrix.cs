@@ -18,6 +18,7 @@ namespace Game{
 #region  Public Functions
         public int[] CheckEmptyBlocks(ButtonType type, int row){
             int[,] tempMatrix = GetRotatedMatrix(type); //Rotate matrix based on type of button
+            // Debug.Log("[Get Lenght(1)]: "+tempMatrix.GetLength(1));
             int[] tempRow = new int[tempMatrix.GetLength(1)]; // Row or column of button from left (button) to right as int[]
             for(int j=0;j<tempMatrix.GetLength(1);j++){tempRow[j] = tempMatrix[row,j];}
             int availableBlocks = CheckRowEmptySpace(tempRow); // Calculate empty blocks from button
@@ -25,7 +26,30 @@ namespace Game{
             return new int[3] {availableBlocks,tempcor[0],tempcor[1]}; //return integer array of emptyblocks, start i and j of emty blocks
         }
 
-        public void FillMatrix(ButtonType type,int[] coor, int blockSize){
+        public void FillMatrix(ButtonType type,int[] headCoor, int blockSize){
+            if(type==ButtonType.ToRight){
+                for(int i = 0;i<blockSize;i++){
+                    matrix[headCoor[0],headCoor[1]-i] = 1;
+                }
+            }
+
+            if(type==ButtonType.ToLeft){
+                for(int i = 0;i<blockSize;i++){
+                    matrix[headCoor[0],headCoor[1]+i] = 1;
+                }
+            }
+
+            if(type==ButtonType.ToButtom){
+                for(int i = 0;i<blockSize;i++){
+                    matrix[headCoor[0]+i,headCoor[1]] = 1;
+                }
+            }
+
+            if(type==ButtonType.ToTop){
+                for(int i = 0;i<blockSize;i++){
+                    matrix[headCoor[0]-i,headCoor[1]] = 1;
+                }
+            }
         }
 #endregion
 
@@ -59,8 +83,8 @@ namespace Game{
             int[] tempcoor = new int[2];
             if(type == ButtonType.ToRight){tempcoor =  new int[2]{row, availableBlocks -1};}
             if(type == ButtonType.ToButtom){tempcoor =  new int[2]{availableBlocks -1, matrix.GetLength(1) - row - 1};}
-            if(type == ButtonType.ToLeft){tempcoor =  new int[2]{matrix.GetLength(0) - row - 1, matrix.GetLength(0) - availableBlocks};}
-            if(type == ButtonType.ToTop){tempcoor =  new int[2]{ matrix.GetLength(1) - availableBlocks, row};}
+            if(type == ButtonType.ToLeft){tempcoor =  new int[2]{matrix.GetLength(0) - row - 1, matrix.GetLength(1) - availableBlocks};}
+            if(type == ButtonType.ToTop){tempcoor =  new int[2]{ matrix.GetLength(0) - availableBlocks, row};}
             return tempcoor;
         }
 

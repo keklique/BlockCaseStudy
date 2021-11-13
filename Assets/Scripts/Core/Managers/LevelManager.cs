@@ -11,8 +11,10 @@ namespace Core{
             private PageController pageController;
             public Map currentMap;
             public GameObject mapObject;
-            public GameObject blockPrefab;
-            public GameObject buttonPrefab;
+            [SerializeField]private GameObject blockPrefab;
+            [SerializeField]private GameObject buttonPrefab;
+            [SerializeField]private GameObject containerPrefab;
+            public int currentBlockSize = 3;
 
 
 
@@ -34,9 +36,10 @@ namespace Core{
                     mapObject = new GameObject("Level",typeof(Map));
                     currentMap = mapObject.GetComponent<Map>();
                     currentMap.SetSizes(x,y);
-                    currentMap.SetPrefabs(blockPrefab, buttonPrefab);
+                    currentMap.SetPrefabs(blockPrefab, buttonPrefab,containerPrefab);
                     currentMap.CreateMap();
                 }
+
         #endregion
 
         #region  private Functions
