@@ -11,13 +11,11 @@ namespace Game{
 #region  Unity Functions
         void Update(){
             mapSize = new int[2] {matrix.GetLength(0),matrix.GetLength(1)};
-            MapMethods.LogMatrix(matrix);
         }
 #endregion
 
 #region  Public Functions
         public int[] CheckEmptyBlocks(ButtonType type, int row){
-            MapMethods.LogMatrix(matrix);
             int[,] tempMatrix = GetRotatedMatrix(type); //Rotate matrix based on type of button
             int[] tempRow = new int[tempMatrix.GetLength(1)]; // Row or column of button from left (button) to right as int[]
             for(int j=0;j<tempMatrix.GetLength(1);j++){tempRow[j] = tempMatrix[row,j];}
@@ -57,7 +55,7 @@ namespace Game{
         }
 
         public void SetSize(int x, int y){
-            
+
             matrix = new int[x,y];
         }
 
