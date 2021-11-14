@@ -30,7 +30,7 @@ namespace Game{
 
         void ButtonFunc(ButtonType btype,int bPosition,Vector3 Vposition){
             int[] result = mapMatrix.CheckEmptyBlocks(btype,bPosition);
-            Debug.Log("[Map]: empty blocks :"+result[0]+" --x :"+result[2]+" --y :"+result[1]);
+            //Debug.Log("[Map]: empty blocks :"+result[0]+" --x :"+result[2]+" --y :"+result[1]);
             if(levelManager.currentBlockSize<=result[0]){
                 CreateContainerObject();
                 int zRotation = GetRotationOfContainer(btype);
@@ -41,6 +41,7 @@ namespace Game{
                 Vector3 targetPosition = new Vector3(result[2],-result[1],0f);
                 tempContainer.GetComponent<Container>().Move(targetPosition);
                 mapMatrix.FillMatrix(btype,new int[]{result[1],result[2]},levelManager.currentBlockSize);
+                if(mapMatrix.CheckLeftEmptyBlocks() == 0){levelManager.LevelCompleted();}
                 
             }else{
                 Debug.Log("Not Fits");
@@ -151,7 +152,9 @@ namespace Game{
         private void SetCameraPosition(){
             float xpos = (float)mapMatrix.matrix.GetLength(0)/2f;
             float ypos = (float)mapMatrix.matrix.GetLength(1)*-1f/2f;
-            Camera.main.transform.position = new Vector3(xpos,ypos,-10f);
+            float zpos = mapMatrix.matrix.GetLength(0);
+            if(mapMatrix.matrix.GetLength(1)>zpos){zpos = mapMatrix.matrix.GetLength(1);}
+            Camera.main.transform.position = new Vector3(xpos,ypos,-1f*((float)zpos+4f));
         }
 
         private void DestroyObjectArray(List<GameObject> array){

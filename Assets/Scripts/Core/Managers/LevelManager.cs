@@ -45,6 +45,10 @@ namespace Core{
                     currentBlockSize = _blockSize;
                 }
 
+                public void LevelCompleted(){
+                    Debug.Log("[Level Manager]: Level Completed");
+                }
+
         #endregion
 
         #region  private Functions

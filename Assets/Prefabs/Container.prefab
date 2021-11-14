@@ -44,6 +44,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lenght: 1
-  elementPrefab: {fileID: 7324569015344992465, guid: cb98c8786da172648a2e4ecc4d04de17, type: 3}
+  elementPrefab: {fileID: 3086810733108121881, guid: 0d70aa405a246ab4c829a3c49a8b613d, type: 3}
+  elementPrefabs:
+  - {fileID: 3086810733108121881, guid: 0d70aa405a246ab4c829a3c49a8b613d, type: 3}
+  - {fileID: 7635126538851450692, guid: 724cc29eb06193f48b49555ec8a1515f, type: 3}
+  - {fileID: 2332802712206329897, guid: 9b443bdc14b7a7445aee0c8372f00a53, type: 3}
+  - {fileID: 3073696358841193953, guid: 7449b0435cea29a4ca2ac2f75f6a30b4, type: 3}
   targetPos: {x: 0, y: 0, z: 0}
   containerSpeed: 3
+  _random: 0

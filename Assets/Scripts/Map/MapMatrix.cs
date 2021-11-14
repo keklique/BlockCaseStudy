@@ -28,29 +28,35 @@ namespace Game{
 
         public void FillMatrix(ButtonType type,int[] headCoor, int blockSize){
             if(type==ButtonType.ToRight){
-                for(int i = 0;i<blockSize;i++){
-                    matrix[headCoor[0],headCoor[1]-i] = 1;
-                }
+                for(int i = 0;i<blockSize;i++){matrix[headCoor[0],headCoor[1]-i] = 1;}
             }
 
             if(type==ButtonType.ToLeft){
-                for(int i = 0;i<blockSize;i++){
-                    matrix[headCoor[0],headCoor[1]+i] = 1;
-                }
+                for(int i = 0;i<blockSize;i++){matrix[headCoor[0],headCoor[1]+i] = 1;}
             }
 
             if(type==ButtonType.ToButtom){
-                for(int i = 0;i<blockSize;i++){
-                    matrix[headCoor[0]-i,headCoor[1]] = 1;
-                }
+                for(int i = 0;i<blockSize;i++){matrix[headCoor[0]-i,headCoor[1]] = 1;}
             }
 
             if(type==ButtonType.ToTop){
-                for(int i = 0;i<blockSize;i++){
-                    matrix[headCoor[0]+i,headCoor[1]] = 1;
-                }
+                for(int i = 0;i<blockSize;i++){matrix[headCoor[0]+i,headCoor[1]] = 1;}
             }
         }
+
+        public int CheckLeftEmptyBlocks(){
+            int _remainBlocks = 0;
+            for(int i=0;i<matrix.GetLength(0);i++){
+                for(int j=0;j<matrix.GetLength(0);j++){
+                    if(matrix[i,j]==0){
+                        _remainBlocks++;
+                    }
+                }
+            }
+            return _remainBlocks;
+        }
+
+
 #endregion
 
 #region  private Functions
