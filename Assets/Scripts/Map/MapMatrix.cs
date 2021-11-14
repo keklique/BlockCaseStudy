@@ -5,20 +5,20 @@ namespace Game{
     public class MapMatrix : MonoBehaviour
     {
         public int[,] matrix;
-        private int[] mapSize;
+        [SerializeField]private int[] mapSize;
 
-        public MapMatrix(int x, int y){
-            matrix = new int[x,y];
-        }
 
 #region  Unity Functions
-
+        void Update(){
+            mapSize = new int[2] {matrix.GetLength(0),matrix.GetLength(1)};
+            MapMethods.LogMatrix(matrix);
+        }
 #endregion
 
 #region  Public Functions
         public int[] CheckEmptyBlocks(ButtonType type, int row){
+            MapMethods.LogMatrix(matrix);
             int[,] tempMatrix = GetRotatedMatrix(type); //Rotate matrix based on type of button
-            // Debug.Log("[Get Lenght(1)]: "+tempMatrix.GetLength(1));
             int[] tempRow = new int[tempMatrix.GetLength(1)]; // Row or column of button from left (button) to right as int[]
             for(int j=0;j<tempMatrix.GetLength(1);j++){tempRow[j] = tempMatrix[row,j];}
             int availableBlocks = CheckRowEmptySpace(tempRow); // Calculate empty blocks from button
@@ -56,6 +56,11 @@ namespace Game{
             return _remainBlocks;
         }
 
+        public void SetSize(int x, int y){
+            
+            matrix = new int[x,y];
+        }
+
 
 #endregion
 
@@ -64,7 +69,8 @@ namespace Game{
             return RotateMatrix((byte)type);
         }
         private int[,] RotateMatrix(byte times){
-            int[,] tempMatrix = matrix;
+            int[,] tempMatrix = MapMethods.CopyOfMatrix(matrix);
+                        
 
             for(int i = 0; i<times;i++){
                 tempMatrix =  MapMethods.RotateMatrixCounterClockwise(tempMatrix);

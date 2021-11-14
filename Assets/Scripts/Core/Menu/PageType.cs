@@ -5,6 +5,7 @@
             Loading,
             Menu,
             Game,
+            LevelCompleted
         }
     }
 }

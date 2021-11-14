@@ -7,7 +7,7 @@ using Core.Managers;
 namespace Game{
     public class Map : MonoBehaviour
     {
-        private MapMatrix mapMatrix;
+        [SerializeField]private MapMatrix mapMatrix;
         private List<GameObject> blocks = new List<GameObject>();
         private List<GameObject> buttons = new List<GameObject>();
         private List<GameObject> containers = new List<GameObject>();
@@ -26,6 +26,10 @@ namespace Game{
             EventManager.instance.OnButtonClicked += ButtonFunc;
             mainCamera = Camera.main;
             
+        }
+
+        void OnDisable(){
+            Destroy(mapMatrix);
         }
 
         void ButtonFunc(ButtonType btype,int bPosition,Vector3 Vposition){
@@ -48,13 +52,11 @@ namespace Game{
             }  
         }
 
-        private void CreateContainerObject(){
-            if(containersObj==null){
-                containersObj = new GameObject("Containers");
-                containersObj.transform.SetParent(this.gameObject.transform);
-                containers.Add(containersObj);  
-            }
+        void Update(){
+
+            if(mapMatrix == null){Debug.Log(mapMatrix);}
         }
+
 #endregion
 
 #region  Public Functions
@@ -66,7 +68,9 @@ namespace Game{
         }
 
         public void SetSizes(int x, int y){
-            mapMatrix = new MapMatrix(x,y);
+            print(x.ToString()+"::"+y.ToString());
+            mapMatrix = gameObject.AddComponent<MapMatrix>();
+            mapMatrix.SetSize(x,y);
         }
         public void CreateMap(){
             CreateBlocks();
@@ -76,6 +80,9 @@ namespace Game{
 
         public void Dispose(){
                 DestroyObjectArray(blocks);
+                DestroyObjectArray(buttons);
+                DestroyObjectArray(containers);
+                Destroy(mapMatrix);
             } 
     
 #endregion
@@ -157,6 +164,13 @@ namespace Game{
             Camera.main.transform.position = new Vector3(xpos,ypos,-1f*((float)zpos+4f));
         }
 
+        private void CreateContainerObject(){
+            if(containersObj==null){
+                containersObj = new GameObject("Containers");
+                containersObj.transform.SetParent(this.gameObject.transform);
+                containers.Add(containersObj);  
+            }
+        }
         private void DestroyObjectArray(List<GameObject> array){
                 foreach(GameObject gameObj in array){
                     if(gameObj!=null){Destroy(gameObj);}

@@ -30,6 +30,13 @@ namespace Core{
                 levelManager.CreateMap(vn,hn);
                 pageController.TurnPageOff(PageType.Menu);
             }
+
+            // public void MainMenu(){
+            //     pageController.TurnPageOff(PageType.Game);
+            //     pageController.TurnPageOff(PageType.LevelCompleted);
+            //     pageController.TurnPageOn(PageType.Menu);
+            //     levelManager.DestroyLevel();
+            // }
             
 #endregion
         }

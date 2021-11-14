@@ -33,5 +33,30 @@ namespace Game{
             }
         }
 
+        public static int[,] CopyOfMatrix(int[,] baseMatrix){
+            int[,] tempMatrix = new int[baseMatrix.GetLength(0),baseMatrix.GetLength(1)];
+            for(int i=0;i<baseMatrix.GetLength(0);i++){
+                for(int j=0;j<baseMatrix.GetLength(1);j++){
+                    tempMatrix[i,j] = baseMatrix[i,j];
+                }
+            }
+            return tempMatrix;
+        }
+
+        public static void LogMatrix(int[,] _matrix){
+            Debug.Log("___________________");
+            for (int j = 0; j < _matrix.GetLength(1); j++)
+            {
+                string msgg = "";
+                for (int i = 0; i < _matrix.GetLength(0); i++)
+                    {
+                        msgg = msgg + _matrix[i, j].ToString();
+                    }
+                Debug.Log(msgg);
+            }
+            Debug.Log("___________________");
+
+        }
+
     }
 }

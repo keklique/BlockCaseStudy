@@ -23,15 +23,13 @@ namespace Core{
                 void Start(){
                     Application.targetFrameRate = 30;
                     pageController = PageController.instance;
-                    // CreateMap(3,5);
                 }
         #endregion
 
         #region  Public Functions
                 public void CreateMap(int x, int y){
                     if(mapObject != null){
-                        currentMap.Dispose();
-                        Destroy(mapObject);
+                        DestroyLevel();
                     }
                     mapObject = new GameObject("Level",typeof(Map));
                     currentMap = mapObject.GetComponent<Map>();
@@ -46,7 +44,12 @@ namespace Core{
                 }
 
                 public void LevelCompleted(){
-                    Debug.Log("[Level Manager]: Level Completed");
+                    pageController.TurnPageOn(PageType.LevelCompleted);
+                }
+
+                public void DestroyLevel(){
+                    currentMap.Dispose();
+                    Destroy(mapObject);
                 }
 
         #endregion
