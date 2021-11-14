@@ -9,15 +9,10 @@ namespace Core{
         {
             public delegate void ButtonClickedEvent(ButtonType btype,int bPosition,Vector3 Vposition);
             public event ButtonClickedEvent OnButtonClicked;
-#region Unity Functions
-
-        
-#endregion
 
 #region Button Functions
         public void ButtonClicked(ButtonType btype,int bPosition,Vector3 Vposition){
             if(OnButtonClicked != null) OnButtonClicked(btype,bPosition,Vposition);
-            
         }
             
 #endregion

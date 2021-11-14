@@ -5,13 +5,10 @@ namespace Game{
     public class MapMatrix : MonoBehaviour
     {
         public int[,] matrix;
-        [SerializeField]private int[] mapSize;
 
 
 #region  Unity Functions
-        void Update(){
-            mapSize = new int[2] {matrix.GetLength(0),matrix.GetLength(1)};
-        }
+
 #endregion
 
 #region  Public Functions
@@ -55,10 +52,8 @@ namespace Game{
         }
 
         public void SetSize(int x, int y){
-
             matrix = new int[x,y];
         }
-
 
 #endregion
 
@@ -66,14 +61,12 @@ namespace Game{
         private int[,] GetRotatedMatrix(ButtonType type){
             return RotateMatrix((byte)type);
         }
+
         private int[,] RotateMatrix(byte times){
             int[,] tempMatrix = MapMethods.CopyOfMatrix(matrix);
-                        
-
             for(int i = 0; i<times;i++){
                 tempMatrix =  MapMethods.RotateMatrixCounterClockwise(tempMatrix);
             }
-            
             return tempMatrix;
         }
 
@@ -82,13 +75,10 @@ namespace Game{
             foreach(int k in row){
                 if(k==0){
                     emptySpace++;
-                }else{
-                    return emptySpace;
-                }
+                }else{return emptySpace;}
             }
             return emptySpace;
         }
-
         private int[] GetIJOfFirstEmpth(ButtonType type, int row, int availableBlocks){
             int[] tempcoor = new int[2];
             if(type == ButtonType.ToRight){tempcoor =  new int[2]{row, availableBlocks -1};}
@@ -97,7 +87,6 @@ namespace Game{
             if(type == ButtonType.ToTop){tempcoor =  new int[2]{ matrix.GetLength(0) - availableBlocks, row};}
             return tempcoor;
         }
-
 #endregion
     }
 }

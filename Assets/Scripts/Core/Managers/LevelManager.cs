@@ -2,7 +2,6 @@ using UnityEngine;
 using Game;
 using Core.Menu;
 
-
 namespace Core{
 
     namespace Managers{
@@ -16,12 +15,9 @@ namespace Core{
             [SerializeField]private GameObject containerPrefab;
             public int currentBlockSize = 3;
 
-
-
-
         #region  Unity Functions
                 void Start(){
-                    Application.targetFrameRate = 30;
+                    Application.targetFrameRate = 30; // it is not appropriate for level manager, will be change. Added for laptop battery
                     pageController = PageController.instance;
                 }
         #endregion
